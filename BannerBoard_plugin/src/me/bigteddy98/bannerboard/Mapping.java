@@ -28,7 +28,15 @@ public class Mapping {
 
 	static {
 		try {
-			getHandle = PacketManager.getCraft("CraftWorld").getMethod("getHandle"); // gives us WorldServer
+			if (getHandle == null) {
+				// trys to ensure the handler initializes
+				try {
+					getHandle = Bukkit.getWorld("world").getClass().getMethod("getHandle");
+				} catch(ExceptionInInitializerError ex) {
+					 getHandle = PacketManager.getCraft("CraftWorld").getMethod("getHandle");
+					 System.out.print(ChatColor.RED + "Warning: Using old Packet Manager");
+				}
+			}
 
 			if (VersionUtil.isHigherThan("v1_13_R2")) {
 				dimensionManager = PacketManager.getNMS("DimensionManager").getField("OVERWORLD").get(null);
