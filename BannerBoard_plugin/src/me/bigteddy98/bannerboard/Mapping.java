@@ -39,7 +39,7 @@ public class Mapping {
 			}
 
 			if (VersionUtil.isHigherThan("v1_13_R2")) {
-				dimensionManager = PacketManager.getNMS("DimensionManager").getField("OVERWORLD").get(null);
+				dimensionManager = Environment.NORMAL;
 				mapField = PacketManager.getNMS("WorldMap").getField("map");
 			}
 
